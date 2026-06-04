@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Foundations Academy - Comprehensive Matrix</title>
+    <style>
+        /* Modern Design System Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #0f172a;
+            --accent: #38bdf8;
+            --light: #f8fafc;
+            --text: #334155;
+            --card-border: #e2e8f0;
+            --success: #16a34a;
+            --error: #dc2626;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navigation Bar */
+        header {
+            background-color: var(--secondary);
+            color: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            cursor: pointer;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent);
+        }
+
+        /* Page Frame Engine */
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+
+        .page.active-page {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Element (Home) */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            color: white;
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 2rem; color: #cbd5e1; }
+
+        /* Main Structural Containers */
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            flex: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            color: var(--secondary);
+        }
+
+        /* Grid Framework */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2.2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--card-border);
+            border-top: 4px solid var(--primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card h3 { margin-bottom: 1rem; color: var(--secondary); font-size: 1.3rem; }
+        .card p { color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+        /* Buttons styling rules */
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+            transition: background 0.3s;
+            text-align: center;
+        }
+        .btn:hover { background-color: #1d4ed8; }
+        .btn:disabled { background-color: #cbd5e1; cursor: not-allowed; }
+
+        /* Deep Content Module Frame */
+        .content-layout {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .content-layout { grid-template-columns: 1fr; }
+        }
+
+        .main-content h1 { color: var(--secondary); font-size: 2.5rem; }
+        .main-content h2 { color: var(--secondary); margin: 2rem 0 1rem; font-size: 1.6rem; border-bottom: 2px solid var(--card-border); padding-bottom: 0.3rem; }
+        .main-content p { margin-bottom: 1.2rem; font-size: 1.05rem; color: #475569; }
+        
+        .sidebar {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+            border: 1px solid var(--card-border);
+        }
+
+        .sidebar h4 { margin-bottom: 1rem; color: var(--secondary); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sidebar ul { list-style: none; }
+        .sidebar li { margin-bottom: 0.75rem; padding-left: 1rem; border-left: 3px solid var(--accent); font-size: 0.95rem; }
+
+        /* Data Tables Design */
+        table { width:100%; border-collapse: collapse; margin: 1.5rem 0; text-align: left; }
+        th { background-color: #cbd5e1; padding: 0.75rem; border: 1px solid #94a3b8; color: var(--secondary); font-weight: 600; }
+        td { padding: 0.75rem; border: 1px solid #cbd5e1; }
+        tr:nth-child(even) { background-color: #f1f5f9; }
+
+        /* MULTI-QUESTION EXAM SYSTEM STYLES */
+        .quiz-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--card-border);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .quiz-progress-bar { width: 100%; height: 8px; background-color: #e2e8f0; border-radius: 10px; margin-bottom: 2rem; overflow: hidden; }
+        .quiz-progress-fill { height: 100%; background-color: var(--primary); width: 0%; transition: width 0.3s ease; }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            margin: 0.75rem 0;
+            background: var(--light);
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1.05rem;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover:not(:disabled) { background: #e2e8f0; border-color: #94a3b8; }
+        .quiz-option.correct { background-color: #dcfce7 !important; border-color: var(--success) !important; color: #14532d; font-weight: 600; }
+        .quiz-option.wrong { background-color: #fee2e2 !important; border-color: var(--error) !important; color: #7f1d1d; }
+
+        #quiz-explanation {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background-color: #eff6ff;
+            border-left: 4px solid var(--primary);
+            border-radius: 4px;
+            display: none;
+            font-size: 1rem;
+        }
+
+        .results-screen { text-align: center; }
+        .score-display { font-size: 4.5rem; font-weight: bold; color: var(--primary); margin: 1.5rem 0; }
+
+        /* Footer Element */
+        footer {
+            background-color: var(--secondary);
+            color: #94a3b8;
+            text-align: center;
+            padding: 2.5rem;
+            font-size: 0.9rem;
+            margin-top: auto;
+            border-top: 4px solid #1e293b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Unified Master Header Navigation -->
+    <header>
+        <div class="logo" onclick="navigateTo('home')">⚡ IT Academy Pro</div>
+        <nav>
+            <a onclick="navigateTo('home')" id="nav-home" class="active">Home</a>
+            <a onclick="navigateTo('hardware')" id="nav-hardware">Hardware & OS</a>
+            <a onclick="navigateTo('networking')" id="nav-networking">Networking</a>
+            <a onclick="navigateTo('development')" id="nav-development">Development</a>
+            <a onclick="navigateTo('cybersecurity')" id="nav-cybersecurity">Cybersecurity</a>
+            <a onclick="navigateTo('cloud')" id="nav-cloud">Cloud & Virtual</a>
+            <a onclick="navigateTo('quiz')" id="nav-quiz">Take Exam</a>
+        </nav>
+    </header>
+
+    <!-- MODULE 1: HOME PLATFORM MATRIX -->
+    <div id="page-home" class="page active-page">
+        <section class="hero">
+            <h1>Comprehensive Information Technology Blueprint</h1>
+            <p>Master the underlying infrastructures governing computing landscapes. Move across structured text logs or challenge your engineering retention using our advanced terminal quiz.</p>
+            <button class="btn" style="background-color: var(--accent); color: var(--secondary);" onclick="navigateTo('hardware')">Initiate Curriculum</button>
+        </section>
+
+        <main class="container">
+            <h2 class="section-title">Academic Modules</h2>
+            <div class="grid">
+                <div class="card">
+                    <div>
+                        <h3>⚙️ 1. Hardware & Operating Systems</h3>
+                        <p>Deconstruct CPU structures, physical bus logic, storage interfaces, memory volatility, and kernel level multi-threading routines.</p>
+                    </div>
+                    <button class="btn" onclick="navigateTo('hardware')">Study Module</button>
+                </div>
+                <div class="card">
+                    <div>
+                        <h3>🌐 2. Computer Networking</h3>
+                        <p>Analyze packet construction routines, port mappings, local switching fabrics, and wide area routing protocols.</p>
+                    </div>
+                    <button class="btn" onclick="navigateTo('networking')">Study Module</button>
+                </div>
+                <div class="card">
+                    <div>
+                        <h3>💻 3. Software Development</h3>
+                        <p>Compare compiled vs interpreted logic trees, frontend DOM parsing elements, version repository control systems, and data structures.</p>
+                    </div>
+                    <button class="btn" onclick="navigateTo('development')">Study Module</button>
+                </div>
+                <div class="card">
+                    <div>
+                        <h3>🔒 4. Cybersecurity Baselines</h3>
+                        <p>Implement asymmetric key distribution mechanisms, examine malware infection phases, and analyze systemic vector threats.</p>
+                    </div>
+                    <button class="btn" onclick="navigateTo('cybersecurity')">Study Module</button>
+                </div>
+                <div class="card">
+                    <div>
+                        <h3>☁️ 5. Cloud & Virtualization</h3>
+                        <p>Understand programmatic virtualization layers, compute abstract hypervisors, and multi-tenant hosting architectures.</p>
+                    </div>
+                    <button class="btn" onclick="navigateTo('cloud')">Study Module</button>
+                </div>
+                <div class="card" style="border-top-color: var(--accent);">
+                    <div>
+                        <h3>📝 Certification Simulator</h3>
+                        <p>Test your comprehensive mental retention against a complete 10-question engineering simulator built on multi-domain structures.</p>
+                    </div>
+                    <button class="btn" style="background-color: var(--secondary);" onclick="navigateTo('quiz')">Launch Exam</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODULE 2: HARDWARE AND OS DATA -->
+    <div id="page-hardware" class="page">
+        <main class="container">
+            <button class="btn" style="background:#64748b; margin-bottom: 1.5rem;" onclick="navigateTo('home')">← Return Dashboard</button>
+            <div class="content-layout">
+                <div class="main-content">
+                    <h1>⚙️ Hardware Engineering & OS Architectures</h1>
+                    
+                    <h2>Core Core Processing Components</h2>
+                    <p>Computing architecture relies on the execution cycle of the Central Processing Unit (CPU). The CPU functions using a three-part execution path: **Fetch** (pulling instructions from RAM), **Decode** (translating data commands via the control unit), and **Execute** (running calculations inside the Arithmetic Logic Unit, or ALU).</p>
+                    
+                    <h2>Memory Volatility Hierarchy</h2>
+                    <p>Computer structures organize data storage pipelines into specific layers based on speed and cost factor attributes:</p>
+                    <ul>
+                        <li><b>L1/L2/L3 Caches:</b> Ultra-fast SRAM (Static RAM) memory pipelines built straight onto the silicon CPU structure.</li>
+                        <li><b>System RAM:</b> Dynamic RAM (DRAM), a volatile storage zone that holds active configuration lines while checking instruction logs. It drops all registers instantly when electricity shuts down.</li>
+                        <li><b>Solid State Storage (SSD):</b> Non-volatile NAND flash memory arrays that store documents using non-volatile charge traps, retaining information long-term.</li>
+                    </ul>
+
+                    <h2>Operating System Kernels</h2>
+                    <p>The Operating System (OS) kernel manages application instructions and physical system hardware channels. It acts as the core supervisor, managing hardware interrupts, allocating process execution slots, and partitioning file sectors securely.</p>
+                </div>
+                <div class="sidebar">
+                    <h4>Core Hardware Terms</h4>
+                    <ul>
+                        <li><b>Motherboard:</b> The central printed circuit board linking system buses.</li>
+                        <li><b>BIOS/UEFI:</b> Built-in firmware that initializes hardware checks during power startup.</li>
+                        <li><b>RAM:</b> Random Access Memory.</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODULE 3: NETWORKING DATA -->
+    <div id="page-networking" class="page">
+        <main class="container">
+            <button class="btn" style="background:#64748b; margin-bottom: 1.5rem;" onclick="navigateTo('home')">← Return Dashboard</button>
+            <div class="content-layout">
+                <div class="main-content">
+                    <h1>🌐 Advanced Computer Networking Protocols</h1>
+                    
+                    <h2>OSI Layer Reference Stack</h2>
+                    <p>Network operations map configurations across 7 distinct abstract zones. This systematic breakdown ensures that modern devices can interpret data streams regardless of vendor hardware differences:</p>
+                    
+                    <table>
+                        <tr>
+                            <th>Layer Index</th>
+                            <th>Layer Title</th>
+                            <th>Functional Objectives & Network Devices</th>
+                        </tr>
+                        <tr><td>7</td><td><b>Application</b></td><td>User interface integrations. Protocols: HTTPS, DNS, SMTP, FTP.</td></tr>
+                        <tr><td>4</td><td><b>Transport</b></td><td>Host-to-host data validation streams. Tracks packet sequences via TCP or UDP configurations.</td></tr>
+                        <tr><td>3</td><td><b>Network</b></td><td>Logical data path determination. Maps logical IP Addressing targets across separate networks. Relies on <b>Routers</b>.</td></tr>
+                        <tr><td>2</td><td><b>Data Link</b></td><td>Local system connections on a single network. Maps hardware MAC Addresses into physical frames. Relies on <b>Switches</b>.</td></tr>
+                        <tr><td>1</td><td><b>Physical</b></td><td>Raw electrical, optical, or radio bit conversions running over copper wires, fiber cables, or Wi-Fi links.</td></tr>
+                    </table>
+
+                    <h2>Core Port Mapping Protocols</h2>
+                    <p>Every internet connection uses specific port numbers at the Transport Layer to guide data packages to the right system services:</p>
+                    <ul>
+                        <li><b>Port 22 (SSH):</b> Secure Shell. Establishes encrypted remote terminal control lines.</li>
+                        <li><b>Port 53 (DNS):</b> Domain Name System. Translates readable domains directly into underlying IP addresses.</li>
+                        <li><b>Port 80 & 443:</b> HTTP (unencrypted text delivery) and HTTPS (secure web connections utilizing TLS encryption layers).</li>
+                    </ul>
+                </div>
+                <div class="sidebar">
+                    <h4>Device Operations</h4>
+                    <ul>
+                        <li><b>Router:</b> Interconnects disparate IP networks.</li>
+                        <li><b>Switch:</b> Learns device MAC locations to switch data locally.</li>
+                        <li><b>DHCP:</b> Automatically leases IP addresses to system clients.</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODULE 4: DEVELOPMENT DATA -->
+    <div id="page-development" class="page">
+        <main class="container">
+            <button class="btn" style="background:#64748b; margin-bottom: 1.5rem;" onclick="navigateTo('home')">← Return Dashboard</button>
+            <div class="content-layout">
+                <div class="main-content">
+                    <h1>💻 Software Development Paradigms</h1>
+                    
+                    <h2>Programming Translation Models</h2>
+                    <p>Developers write human-readable source code instructions, which must be processed down into low-level binary code (zeros and ones) through two primary translation methods:</p>
+                    <p><b>Compiled Languages (e.g., C++, Rust):</b> A compiler parses the entire application code file beforehand, converting it all into a single, high-performance machine executable block. This file runs incredibly fast but must be recompiled for different operating systems.</p>
+                    <p><b>Interpreted Languages (e.g., Python, JavaScript):</b> An interpreter reads and executes the code line-by-line at runtime. This model provides excellent flexibility and allows you to test scripts instantly, but it introduces minor speed performance costs.</p>
+
+                    <h2>The Modern Web Architecture Framework</h2>
+                    <p>Web applications split tasks between two distinct execution layers:</p>
+                    <ul>
+                        <li><b>Frontend Stack:</b> Runs directly inside the user's web browser. It relies on HTML to define content layout, CSS to manage visual design and styles, and JavaScript to handle page interaction logic.</li>
+                        <li><b>Backend Infrastructure:</b> Processes complex workflows away from public view. Servers run programming languages like Python or Node.js to compute data and connect directly with core database arrays (such as PostgreSQL or MongoDB).</li>
+                    </ul>
+                </div>
+                <div class="sidebar">
+                    <h4>Dev Core Skills</h4>
+                    <ul>
+                        <li><b>Data Structures:</b> Arrays, Lists, and Dictionaries organize file records cleanly.</li>
+                        <li><b>Git Version Control:</b> Tracks and logs every line change, preventing code conflicts.</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODULE 5: CYBERSECURITY DATA -->
+    <div id="page-cybersecurity" class="page">
+        <main class="container">
+            <button class="btn" style="background:#64748b; margin-bottom: 1.5rem;" onclick="navigateTo('home')">← Return Dashboard</button>
+            <div class="content-layout">
+                <div class="main-content">
+                    <h1>🔒 Information Security Foundations</h1>
+                    
+                    <h2>The Fundamental CIA Triad</h2>
+                    <p>Cyber defense teams use three core pillars as a blueprint to secure system architectures and protect confidential enterprise assets:</p>
+                    <p><b>Confidentiality:</b> Locking down access privileges so sensitive files remain invisible to unapproved user accounts (enforced through multi-factor authentication and data encryption).</p>
+                    <p><b>Integrity:</b> Protecting files against unauthorized tampering or modification, ensuring records stay authentic (verified using hashing algorithms like SHA-256).</p>
+                    <p><b>Availability:</b> Keeping network systems and services accessible to authorized employees around the clock (maintained through power backups and redundant servers).</p>
+
+                    <h2>Deconstructing Encryption Methods</h2>
+                    <p>Encryption scrambles legible text files into unreadable blocks of random characters to keep data safe. This is achieved using two main cryptographic approaches:</p>
+                    <ul>
+                        <li><b>Symmetric Cryptography:</b> Both the sender and the receiver use the exact same secret key to encrypt and decrypt the data. This method is incredibly fast but requires a secure way to share the key beforehand (e.g., AES encryption).</li>
+                        <li><b>Asymmetric Cryptography:</b> Uses a linked pair of mathematically related keys. The **Public Key** can be shared openly with anyone to encrypt data, but only the corresponding private **Private Key** can decrypt it (e.g., RSA encryption algorithms).</li>
+                    </ul>
+                </div>
+                <div class="sidebar">
+                    <h4>Vector Defense</h4>
+                    <ul>
+                        <li><b>Phishing:</b> Fraudulent emails used to steal login credentials.</li>
+                        <li><b>Firewall:</b> A network filter that blocks unapproved traffic.</li>
+                        <li><b>MFA:</b> Multi-Factor Authentication.</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODULE 6: CLOUD AND VIRTUALIZATION DATA -->
+    <div id="page-cloud" class="page">
+        <main class="container">
+            <button class="btn" style="background:#64748b; margin-bottom: 1.5rem;" onclick="navigateTo('home')">← Return Dashboard</button>
+            <div class="content-layout">
+                <div class="main-content">
+                    <h1>☁️ Cloud Architectures & Virtualization Systems</h1>
+                    
+                    <h2>The Power of Virtualization</h2>
+                    <p>Virtualization allows you to run multiple independent operating systems simultaneously on a single physical server. This technology relies on a software abstraction layer called a **Hypervisor**:</p>
+                    <p><b>Type 1 (Bare-Metal Hypervisors):</b> Installs and runs directly on top of the physical server hardware (e.g., VMware ESXi). This approach offers maximum performance and is the standard choice for enterprise data centers.</p>
+                    <p><b>Type 2 (Hosted Hypervisors):</b> Runs as an application layer on top of an existing operating system (e.g., VirtualBox running on Windows). This setup is ideal for developer testing environments but introduces minor performance overhead.</p>
+
+                    <h2>Cloud Delivery Models</h2>
+                    <p>Cloud computing transforms fixed hardware expenses into scalable, pay-as-you-go service models over the internet:</p>
+                    <ul>
+                        <li><b>IaaS (Infrastructure as a Service):</b> Provides raw computing power, virtual servers, and storage space. You retain full control over the operating system and software configuration (e.g., AWS EC2).</li>
+                        <li><b>PaaS (Platform as a Service):</b> Delivers a pre-configured environment optimized for building software. The underlying OS and server maintenance are completely managed for you (e.g., Heroku).</li>
+                        <li><b>SaaS (Software as a Service):</b> Provides a fully functional web application accessible directly through your browser. Requires zero system management on your end (e.g., Google Workspace).</li>
+                    </ul>
+                </div>
+                <div class="sidebar">
+                    <h4>Cloud Definitions</h4>
+                    <ul>
+                        <li><b>Scalability:</b> The ability to instantly scale up server resources on demand.</li>
+                        <li><b>Containers:</b> Lightweight isolation engines (like Docker) that package app code.</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- EXAM SIMULATOR PORTAL -->
+    <div id="page-quiz" class="page">
+        <main class="container">
+            <h1 class="section-title">IT Competency Board Examination</h1>
+            
+            <div class="quiz-card" id="quiz-card-body">
+                <div class="quiz-header">
+                    <span id="current-question-index" style="font-weight: 600; color: var(--secondary);">Question 1 of 10</span>
+                    <span id="live-score-tracker" style="color: var(--text); font-size: 0.9rem;">Score: 0/0</span>
+                </div>
+                
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill" id="progress-bar-fill"></div>
+                </div>
+
+                <h3 id="active-question-text" style="margin-bottom: 1.5rem; color: var(--secondary);">Question text loading...</h3>
+                <div id="active-options-zone"></div>
+                <div id="quiz-explanation"></div>
+
+                <div style="text-align: right; margin-top: 1.5rem;">
+                    <button class="btn" id="next-question-btn" onclick="nextQuestion()" disabled>Next Question →</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Master Footer -->
+    <footer>
+        <p>&copy; 2026 IT Foundations Academy. Technical blueprints built for next-generation engineers and system administrators.</p>
+    </footer>
+
+    <!-- Multipage Router & Interactive Exam Script Logic -->
+    <script>
+        // System Router Engine
+        function navigateTo(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active-page'));
+
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            document.getElementById(`page-${pageId}`).classList.add('active-page');
+
+            const currentNav = document.getElementById(`nav-${pageId}`);
+            if(currentNav) currentNav.classList.add('active');
+
+            window.scrollTo(0, 0);
+
+            if (pageId === 'quiz') {
+                resetExam();
+            }
+        }
+
+        // --- EXTENDED 10 QUESTION EXAM DATA BANK ---
+        const questionBank = [
+            {
+                question: "Which layer of the volatile memory matrix resides directly on the CPU silicon die to yield the highest transfer speeds?",
+                options: ["System DRAM Arrays", "NAND Flash Storage Blocks", "L1/L2/L3 SRAM Caches", "Virtual Swap Space"],
+                correct: 2,
+                explanation: "L1, L2, and L3 caches are constructed using high-speed Static RAM (SRAM) right on the CPU chip, minimizing the travel time of instructions to the processor cores."
+            },
+            {
+                question: "Which layer of the OSI model architecture executes path selection choices across independent logical networks?",
+                options: ["Data Link Layer", "Transport Layer", "Network Layer", "Physical Layer"],
+                correct: 1, // Fix mapping tracker index 2
+                correct: 2,
+                explanation: "The Network Layer (Layer 3) handles IP addressing and path routing, allowing data packets to travel across completely different networks."
+            },
+            {
+                question: "What well-known port maps encrypted remote management access connections using the Secure Shell (SSH) protocol?",
+                options: ["Port 21", "Port 22", "Port 53", "Port 443"],
+                correct: 1,
+                explanation: "Port 22 is reserved for SSH, providing a secure, encrypted connection for managing remote servers."
+            },
+            {
+                question: "What software translation mechanism processes application source files completely into a standalone machine executable file ahead of time?",
+                options: ["Interpreter Engine", "Compiler Routine", "Hypervisor Layer", "DOM Parser Linker"],
+                correct: 1,
+                explanation: "Compilers translate human-written source code into raw binary files ahead of time, ensuring optimal execution speeds when running software."
+            },
+            {
+                question: "Which security value ensures that application records have not been altered, tampered with, or deleted by unauthorized sources?",
+                options: ["Confidentiality", "Availability", "Integrity", "Authentication"],
+                correct: 2,
+                explanation: "Integrity guarantees that the data remains accurate, complete, and untouched by unauthorized modifications throughout its lifecycle."
+            },
+            {
+                question: "Which cloud service delivery model provides virtual servers, network switches, and raw storage while leaving operating system updates to the customer?",
+                options: ["SaaS (Software as a Service)", "PaaS (Platform as a Service)", "IaaS (Infrastructure as a Service)", "DaaS (Data as a Service)"],
+                correct: 2,
+                explanation: "Infrastructure as a Service (IaaS) delivers raw infrastructure elements like servers and storage over the web, giving you full control over the operating system environment."
+            },
+            {
+                question: "What software engine runs straight on the bare-metal hardware of an enterprise server to host multiple virtual machine instances?",
+                options: ["Type 2 Hosted Hypervisor", "Type 1 Bare-Metal Hypervisor", "Decentralized Git Repository", "Operating System Micro-Kernel"],
+                correct: 1,
+                explanation: "Type 1 hypervisors install directly onto the physical server hardware, providing maximum performance and efficiency for hosting virtual machine instances."
+            },
+            {
+                question: "What core cryptographic approach relies on a mathematically linked pair of public and private keys to secure web traffic?",
+                options: ["Symmetric Encryption", "Asymmetric Encryption", "Hashing Digest Verification", "Salting Bit Vector Mapping"],
+                correct: 1,
+                explanation: "Asymmetric encryption uses public keys to encrypt data and corresponding private keys to decrypt it, eliminating the risk of sharing a single secret key."
+            },
+            {
+                question: "What technology uses a lightweight isolation engine to wrap code and its exact dependencies together, running directly inside the host OS kernel?",
+                options: ["Bare-Metal Virtual Machine", "Type 2 Hypervisor App", "Containerization (e.g., Docker)", "BIOS Bootloader Script"],
+                correct: 2,
+                explanation: "Containers isolate individual applications while sharing the host operating system's kernel, making them much lighter and faster than traditional virtual machines."
+            },
+            {
+                question: "What tool acts as the phonebook of the internet, converting human-readable web addresses into numeric IP addresses?",
+                options: ["Dynamic Host Configuration Protocol (DHCP)", "Domain Name System (DNS)", "Address Resolution Protocol (ARP)", "Secure Sockets Layer (SSL)"],
+                correct: 1,
+                explanation: "The Domain Name System (DNS) translates user-friendly domains (like google.com) into the numeric IP addresses computers use to route data."
+            }
+        ];
+
+        // Tracker Variable States
+        let currentQuestionIdx = 0;
+        let runningScore = 0;
+        let selectionLocked = false;
+
+        // Reset Exam Layout Pointers
+        function resetExam() {
+            currentQuestionIdx = 0;
+            runningScore = 0;
+            selectionLocked = false;
+            document.getElementById('quiz-card-body').innerHTML = `
+                <div class="quiz-header">
+                    <span id="current-question-index" style="font-weight: 600; color: var(--secondary);">Question 1 of 10</span>
+                    <span id="live-score-tracker" style="color: var(--text); font-size: 0.9rem;">Score: 0/0</span>
+                </div>
+                <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progress-bar-fill"></div></div>
+                <h3 id="active-question-text" style="margin-bottom: 1.5rem; color: var(--secondary);">Question text loading...</h3>
+                <div id="active-options-zone"></div>
+                <div id="quiz-explanation"></div>
+                <div style="text-align: right; margin-top: 1.5rem;">
+                    <button class="btn" id="next-question-btn" onclick="nextQuestion()" disabled>Next Question →</button>
+                </div>
+            `;
+            renderQuestion();
+        }
+
+        // Display current target item components
+        function renderQuestion() {
+            selectionLocked = false;
+            
+            const currentItem = questionBank[currentQuestionIdx];
+            const textTarget = document.getElementById('active-question-text');
+            const optionsZone = document.getElementById('active-options-zone');
+            const indexTracker = document.getElementById('current-question-index');
+            const liveScore = document.getElementById('live-score-tracker');
+            const nextBtn = document.getElementById('next-question-btn');
+            const explanationBox = document.getElementById('quiz-explanation');
+
+            explanationBox.style.display = "none";
+            nextBtn.disabled = true;
+
+            indexTracker.innerText = `Question ${currentQuestionIdx + 1} of ${questionBank.length}`;
+            liveScore.innerText = `Score: ${runningScore}/${currentQuestionIdx}`;
+            textTarget.innerText = currentItem.question;
+
+            const progressPct = (currentQuestionIdx / questionBank.length) * 100;
+            document.getElementById('progress-bar-fill').style.width = `${progressPct}%`;
+
+            optionsZone.innerHTML = "";
+            currentItem.options.forEach((optionText, index) => {
+                const btn = document.createElement('button');
+                btn.className = "quiz-option";
+                btn.innerText = optionText;
+                btn.onclick = () => evaluateSelection(index, btn);
+                optionsZone.appendChild(btn);
+            });
+        }
+
+        // Validate selection parameters
+        function evaluateSelection(chosenIdx, actionBtnElement) {
+            if (selectionLocked) return;
+            selectionLocked = true;
+
+            const currentItem = questionBank[currentQuestionIdx];
+            const allOptionButtons = document.querySelectorAll('.quiz-option');
+            const explanationBox = document.getElementById('quiz-explanation');
+            const nextBtn = document.getElementById('next-question-btn');
+            const liveScore = document.getElementById('live-score-tracker');
+
+            allOptionButtons.forEach(btn => btn.disabled = true);
+
+            if (chosenIdx === currentItem.correct) {
+                actionBtnElement.classList.add('correct');
+                runningScore++;
+                explanationBox.innerHTML = `<strong>🎯 Correct!</strong> ${currentItem.explanation}`;
+                explanationBox.style.borderColor = "var(--success)";
+            } else {
+                actionBtnElement.classList.add('wrong');
+                allOptionButtons[currentItem.correct].classList.add('correct');
+                explanationBox.innerHTML = `<strong>❌ Incorrect.</strong> ${currentItem.explanation}`;
+                explanationBox.style.borderColor = "var(--error)";
+            }
+
+            liveScore.innerText = `Score: ${runningScore}/${currentQuestionIdx + 1}`;
+            explanationBox.style.display = "block";
+            nextBtn.disabled = false;
+        }
+
+        // Step Router incrementer
+        function nextQuestion() {
+            currentQuestionIdx++;
+            if (currentQuestionIdx < questionBank.length) {
+                renderQuestion();
+            } else {
+                renderExamSummaryReport();
+            }
+        }
+
+        // Build scorecard layout parameters output log
+        function renderExamSummaryReport() {
+            const containerCard = document.getElementById('quiz-card-body');
+            const totalQuestions = questionBank.length;
+            const successRatio = Math.round((runningScore / totalQuestions) * 100);
+            
+            document.getElementById('progress-bar-fill').style.width = `100%`;
+
+            let reviewMessage = "";
+            if(successRatio >= 85) {
+                reviewMessage = "🏆 Incredible performance! You have a phenomenal conceptual understanding of fundamental IT components. You are completely ready to target professional certifications like CompTIA IT Fundamentals (ITF+) or A+ Core Series!";
+            } else if (successRatio >= 70) {
+                reviewMessage = "⚡ Solid passing standard! You demonstrate strong core knowledge. Review the minor mistakes in Networking or Virtualization domains to secure complete baseline fluency.";
+            } else {
+                reviewMessage = "📚 Good attempt! Technology tracks feature highly detailed terminology pipelines. Re-examine the instructional modules, take notes on layers and ports, and try the assessment again.";
+            }
+
+            containerCard.innerHTML = `
+                <div class="results-screen">
+                    <h2>Exam Summary Report</h2>
+                    <div class="score-display">${successRatio}%</div>
+                    <p style="font-size: 1.2rem; margin-bottom: 1rem; font-weight: 600;">You answered ${runningScore} out of ${totalQuestions} items correctly.</p>
+                    <p style="color: #475569; max-width:630px; margin: 0 auto 2rem; line-height:1.6">${reviewMessage}</p>
+                    <button class="btn" onclick="resetExam()">🔄 Start New Exam Session</button>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
